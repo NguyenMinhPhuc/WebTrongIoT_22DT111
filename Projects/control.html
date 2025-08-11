@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>IoT Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: #181c24;
+      color: #f1f1f1;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .dashboard-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px;
+      background: #232a34;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px #0005;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 32px;
+      color: #4fc3f7;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      gap: 16px;
+    }
+    .stat-box {
+      flex: 1;
+      background: #222831;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 2px 8px #0003;
+    }
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #4fc3f7;
+    }
+    .stat-label {
+      font-size: 1.1rem;
+      color: #b0bec5;
+      margin-top: 8px;
+    }
+    .chart-container {
+      background: #222831;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .weather-forecast {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 16px;
+      color: #ffd54f;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>IoT Dashboard</h1>
+    <div class="stats">
+      <div class="stat-box">
+        <div class="stat-value" id="tempValue">--°C</div>
+        <div class="stat-label">Nhiệt độ</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="humiValue">--%</div>
+        <div class="stat-label">Độ ẩm</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="timeValue">--:--:--</div>
+        <div class="stat-label">Thời gian</div>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="iotChart" height="80"></canvas>
+    </div>
+    <div class="weather-forecast" id="weatherForecast">
+      Dự báo thời tiết: Đang cập nhật...
+    </div>
+  </div>
+  <script>
+    // Hàm mô phỏng dữ liệu ngẫu nhiên
+    function randomTemp() { return (Math.random() * 10 + 25).toFixed(1); }
+    function randomHumi() { return (Math.random() * 30 + 50).toFixed(1); }
+    function randomWeather() {
+      const arr = [
+        "Nắng nhẹ 🌤️",
+        "Mưa nhỏ 🌧️",
+        "Trời nhiều mây ☁️",
+        "Nắng nóng ☀️",
+        "Có sương mù 🌫️"
+      ];
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // Cập nhật thời gian thực
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('timeValue').textContent =
+        now.toLocaleTimeString('vi-VN');
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Cập nhật nhiệt độ, độ ẩm, dự báo thời tiết
+    function updateStats() {
+      const temp = randomTemp();
+      const humi = randomHumi();
+      document.getElementById('tempValue').textContent = temp + "°C";
+      document.getElementById('humiValue').textContent = humi + "%";
+      document.getElementById('weatherForecast').textContent =
+        "Dự báo thời tiết: " + randomWeather();
+
+      // Thêm dữ liệu vào biểu đồ
+      if (iotChart.data.labels.length > 20) {
+        iotChart.data.labels.shift();
+        iotChart.data.datasets[0].data.shift();
+        iotChart.data.datasets[1].data.shift();
+      }
+      const now = new Date();
+      iotChart.data.labels.push(now.toLocaleTimeString('vi-VN'));
+      iotChart.data.datasets[0].data.push(temp);
+      iotChart.data.datasets[1].data.push(humi);
+      iotChart.update();
+    }
+
+    // Khởi tạo biểu đồ Chart.js
+    const ctx = document.getElementById('iotChart').getContext('2d');
+    const iotChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: 'Nhiệt độ (°C)',
+            data: [],
+            borderColor: '#ff7043',
+            backgroundColor: 'rgba(255,112,67,0.1)',
+            tension: 0.3,
+            fill: true
+          },
+          {
+            label: 'Độ ẩm (%)',
+            data: [],
+            borderColor: '#4fc3f7',
+            backgroundColor: 'rgba(79,195,247,0.1)',
+            tension: 0.3,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: '#f1f1f1' } }
+        },
+        scales: {
+          x: { ticks: { color: '#b0bec5' }, grid: { color: '#333' } },
+          y: { ticks: { color: '#b0bec5' }, grid: { color: '#333' } }
+        }
+      }
+    });
+
+    // Cập nhật dữ liệu mỗi 3 giây
+    setInterval(updateStats, 3000);
+    updateStats();
+  </script>
+</body>
+</html>
+<!-- 
+Nếu bạn muốn lấy dữ liệu từ SQL Server, bạn cần:
+1. Tạo một API backend (bằng Node.js, Python, .NET, v.v.) để truy vấn SQL Server và trả về dữ liệu JSON.
+2. Thay thế các hàm randomTemp(), randomHumi(), randomWeather() bằng hàm fetch dữ liệu từ API.
+3. Ví dụ (giả sử bạn có API ở /api/iot/latest):
+
+<script>
+async function fetchStats() {
+  try {
+    const res = await fetch('/api/iot/latest');
+    const data = await res.json();
+    document.getElementById('tempValue').textContent = data.temp + "°C";
+    document.getElementById('humiValue').textContent = data.humi + "%";
+    document.getElementById('weatherForecast').textContent =
+      "Dự báo thời tiết: " + data.weather;
+
+    if (iotChart.data.labels.length > 20) {
+      iotChart.data.labels.shift();
+      iotChart.data.datasets[0].data.shift();
+      iotChart.data.datasets[1].data.shift();
+    }
+    const now = new Date();
+    iotChart.data.labels.push(now.toLocaleTimeString('vi-VN'));
+    iotChart.data.datasets[0].data.push(data.temp);
+    iotChart.data.datasets[1].data.push(data.humi);
+    iotChart.update();
+  } catch (e) {
+    console.error(e);
+  }
+}
+setInterval(fetchStats, 3000);
+fetchStats();
+</script>
+
+Bạn cần tự xây dựng API backend để lấy dữ liệu từ SQL Server và trả về JSON cho frontend.
+-->

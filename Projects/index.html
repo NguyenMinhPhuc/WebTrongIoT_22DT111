@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Landing Page - Web IoT</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
-
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Web IoT - Giải pháp kết nối thông minh</h1>
+    <h2>Web IoT - Giải pháp kết nối thông minh</h2>
     <p>Chào mừng bạn đến với trang web IoT hiện đại!</p>
   </header>
   <nav>
@@ -19,6 +19,30 @@
       <li><a href="#about">Giới thiệu</a></li>
       <li><a href="#contact">Liên hệ</a></li>
     </ul>
+    <style>
+      nav {
+        background: #d32f2f;
+      }
+      nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        padding: 12px 18px;
+        display: block;
+        transition: background 0.2s;
+        border-radius: 4px;
+      }
+      nav ul li a:hover {
+        background: #b71c1c;
+      }
+    </style>
   </nav>
   <section class="hero" id="hero">
     <h1>Khám phá giải pháp IoT cho tương lai</h1>
