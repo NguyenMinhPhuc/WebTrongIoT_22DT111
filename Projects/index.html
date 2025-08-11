@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page - Web IoT</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+  <style>
+    body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #f5f6fa; }
+    header { background: #273c75; color: #fff; padding: 30px 0; text-align: center; }
+    nav { background: #353b48; padding: 10px 0; }
+    nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; }
+    nav ul li { margin: 0 20px; }
+    nav ul li a { color: #fff; text-decoration: none; font-weight: 500; }
+    .hero { background: #40739e; color: #fff; padding: 60px 20px; text-align: center; }
+    .hero h1 { margin: 0 0 20px; font-size: 2.5em; }
+    .hero p { font-size: 1.2em; margin-bottom: 30px; }
+    .hero .cta-btn { background: #e1b12c; color: #fff; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1.1em; cursor: pointer; transition: background 0.3s; }
+    .hero .cta-btn:hover { background: #fbc531; }
+    .features { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 60px 20px; background: #fff; }
+    .feature { background: #f1f2f6; border-radius: 10px; padding: 30px; width: 300px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; }
+    .feature h3 { margin-top: 0; color: #273c75; }
+    .about, .contact { padding: 60px 20px; max-width: 900px; margin: auto; }
+    .about h2, .contact h2 { color: #273c75; }
+    .contact-form { display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: auto; }
+    .contact-form input, .contact-form textarea { padding: 10px; border: 1px solid #dcdde1; border-radius: 5px; }
+    .contact-form button { background: #273c75; color: #fff; border: none; padding: 12px; border-radius: 5px; cursor: pointer; }
+    footer { background: #353b48; color: #fff; text-align: center; padding: 20px 0; }
+    @media (max-width: 900px) {
+      .features { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Web IoT - Giải pháp kết nối thông minh</h1>
+    <p>Chào mừng bạn đến với trang web IoT hiện đại!</p>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="#hero">Trang chủ</a></li>
+      <li><a href="#features">Tính năng</a></li>
+      <li><a href="#about">Giới thiệu</a></li>
+      <li><a href="#contact">Liên hệ</a></li>
+    </ul>
+  </nav>
+  <section class="hero" id="hero">
+    <h1>Khám phá giải pháp IoT cho tương lai</h1>
+    <p>Chúng tôi cung cấp các giải pháp IoT giúp bạn quản lý, giám sát và điều khiển thiết bị thông minh một cách dễ dàng.</p>
+    <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Đăng ký ngay</button>
+  </section>
+  <section class="features" id="features">
+    <div class="feature">
+      <h3>Kết nối dễ dàng</h3>
+      <p>Kết nối các thiết bị IoT chỉ với vài thao tác đơn giản, hỗ trợ nhiều giao thức phổ biến.</p>
+    </div>
+    <div class="feature">
+      <h3>Giám sát thời gian thực</h3>
+      <p>Theo dõi trạng thái thiết bị và nhận cảnh báo ngay lập tức khi có sự cố.</p>
+    </div>
+    <div class="feature">
+      <h3>Bảo mật cao</h3>
+      <p>Áp dụng các công nghệ bảo mật tiên tiến, đảm bảo an toàn dữ liệu của bạn.</p>
+    </div>
+  </section>
+  <section class="about" id="about">
+    <h2>Về chúng tôi</h2>
+    <p>
+      Web IoT là dự án hướng tới việc xây dựng nền tảng quản lý và điều khiển thiết bị thông minh qua Internet. Chúng tôi cam kết mang đến cho khách hàng những trải nghiệm tốt nhất với công nghệ hiện đại, giao diện thân thiện và dịch vụ hỗ trợ tận tình.
+    </p>
+  </section>
+  <section class="contact" id="contact">
+    <h2>Liên hệ với chúng tôi</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Họ và tên" required>
+      <input type="email" placeholder="Email" required>
+      <textarea rows="4" placeholder="Nội dung liên hệ" required></textarea>
+      <button type="submit">Gửi liên hệ</button>
+    </form>
+  </section>
+  <footer>
+    &copy; 2024 Web IoT. All rights reserved.
+  </footer>
+</body>
+</html></div></section>
